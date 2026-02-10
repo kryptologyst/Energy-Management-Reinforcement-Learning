@@ -1,0 +1,64 @@
+# Default configuration for Energy Management RL
+# This file can be customized for different experiments
+
+# Environment configuration
+env:
+  max_storage_capacity: 100.0
+  max_demand: 50.0
+  max_generation: 80.0
+  price_variability: 0.3
+  episode_length: 96  # 24 hours * 4 (15-min intervals)
+  seed: 42
+
+# Agent configuration
+agent:
+  type: sac  # 'dqn' or 'sac'
+  lr: 3e-4
+  gamma: 0.99
+  buffer_size: 100000
+  batch_size: 256
+  hidden_dim: 256
+
+# DQN specific parameters
+dqn:
+  epsilon: 1.0
+  epsilon_decay: 0.995
+  epsilon_min: 0.01
+  target_update: 100
+
+# SAC specific parameters
+sac:
+  tau: 0.005
+  alpha: null  # Auto-tune if null
+
+# Training configuration
+training:
+  num_episodes: 2000
+  eval_frequency: 100
+  save_frequency: 500
+  max_steps_per_episode: 1000
+  log_dir: logs
+
+# Evaluation configuration
+evaluation:
+  num_episodes: 100
+  eval_dir: evaluation
+  seeds: null  # Will be generated if null
+
+# Device configuration
+device:
+  use_cuda: true
+  use_mps: true  # Apple Silicon
+  device: null  # Auto-detect if null
+
+# Logging configuration
+logging:
+  level: INFO
+  use_wandb: false
+  use_tensorboard: true
+  project_name: energy-management-rl
+
+# Reproducibility settings
+reproducibility:
+  seed: 42
+  deterministic: true
